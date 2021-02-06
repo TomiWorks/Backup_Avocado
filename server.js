@@ -1,3 +1,6 @@
+import { createRequire } from "module";
+const require = createRequire(import.meta.url);
+
 // server.js
 // where your node app starts
 
@@ -32,3 +35,13 @@ app.get("/dreams", (request, response) => {
 const listener = app.listen(process.env.PORT, () => {
   console.log("Your app is listening on port " + listener.address().port);
 });
+
+const Discord = require("discord.js");
+const client = new Discord.Client();
+const fs = require("fs");
+
+const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
+
+for (const file of commandFiles)
+
+const prefix = process.env.TOKEN;
