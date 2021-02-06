@@ -15,7 +15,7 @@ module.exports = {
     save();
     
     let eliminado = new MessageEmbed()
-    .setTitle(`Backup eliminadp correctamente`)
+    .setTitle(`Backup eliminado correctamente`)
     .setDescription(`El backup con esa ID fue eliminado con éxito.`)
     .setColor("GREEN");
     

@@ -64,8 +64,7 @@ module.exports = {
       let resultado = new MessageEmbed()
       .setTitle('Backup finalizado')
       .setDescription(`Backup de **${message.guild.name}** creado con la ID \`${id}\``)
-      .addField("Uso", `\`\`\`.loadbackup ${id}\`\`\`
-      \`\`\`b!backup info ${id}\`\`\``)
+      .addField("Uso", `\`\`\`.loadbackup ${id}\`\`\``)
       .setColor("GREEN");
       
       let md = new MessageEmbed()

@@ -29,7 +29,7 @@ module.exports = {
       let si = msg.createReactionCollector(siFilter, { time: 0 });
       let no = msg.createReactionCollector(noFilter, { time: 0 });
       
-      si.on('collect', r => {
+      si.on('collect', (collected) => {
         delete backups[message.author.id];
         save();
 
@@ -39,6 +39,10 @@ module.exports = {
         message.channel.send(deletedSuccess);
         
         msg.delete();
+      });
+      
+      no.on('collect', (collected) => {
+        msg.delete()
       })
     });
   }
