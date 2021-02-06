@@ -1,7 +1,6 @@
 const { MessageEmbed } = require("discord.js");
 const fs = require("fs");
 const backups = JSON.parse(fs.readFileSync("./backups/backups.json", "utf8"));
-const save = require("../utils/save.js");
 
 module.exports = {
   name: "purgebackup",
@@ -43,4 +42,10 @@ module.exports = {
       })
     });
   }
+}
+
+function save() {
+  fs.writeFile("./backups/backups.json", JSON.stringify(backups), err => {
+    if (err) console.error(err);
+  });
 }

@@ -1,8 +1,6 @@
 const { MessageEmbed } = require("discord.js");
 const fs = require("fs");
 const hastebins = require("hastebin-gen");
-const createBackupID = require("../utils/createBackupID.js");
-const save = require("../utils/save.js");
 const backups = JSON.parse(fs.readFileSync("./backups/backups.json", "utf8"));
 
 module.exports = {
@@ -69,10 +67,34 @@ module.exports = {
       \`\`\`b!backup info ${id}\`\`\``)
       .setColor("GREEN");
       
+      let md = new MessageEmbed()
+      .setTitle('Backup finalizado')
+      .setDescription(`Revisa tus mensajes privados!!`)
+      .setColor("GREEN");
+      
       message.author.send(resultado);
-      m.edit('Revisa tus mensajes privados!!');
+      m.edit(md);
 
       return true;
     });
   }
+}
+
+function createBackupID(length) {
+    const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    let result = "";
+    let charactersLength = characters.length;
+
+    for (let i = 0; i < length; i++) {
+      result += characters.charAt(
+        Math.floor(Math.random() * charactersLength)
+      );
+    }
+    return result;
+}
+
+function save() {
+  fs.writeFile("./backups/backups.json", JSON.stringify(backups), err => {
+    if (err) console.error(err);
+  });
 }
