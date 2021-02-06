@@ -13,6 +13,22 @@ module.exports = {
       c.delete('Para cargar un backup.');
     });
     
-    message.guild.roles.cache.filter(r => r.members.every(m => !m.user.bot)).forEach()
+    message.guild.roles.cache.filter(r => r.members.every(m => !m.user.bot)).forEach(r => {
+      r.delete('Para cargar un backup.');
+    });
+    
+    await backups[message.author.id][args[0]].roles.forEach(async function(role) {
+      message.guild.roles.create({
+        data: {
+          color: role.color,
+          hoist: role.hoist,
+          mentionable: role.mentionable,
+          name: role.name,
+          permissions: role.permissions,
+          position: role.position
+        },
+        reason: ""
+      })
+    })
   }
 }
