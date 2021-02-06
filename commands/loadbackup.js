@@ -27,8 +27,24 @@ module.exports = {
           permissions: role.permissions,
           position: role.position
         },
-        reason: ""
-      })
-    })
+        reason: 'Para cargar un backup.'
+      }).then(r => {
+        r.setPosition(r.position);
+      });
+    });
+    
+    await backups[message.author.id][args[0]].channels.filter(channels => channels.type === "category").forEach(async function(ch) {
+      message.guild.channels.create(ch.name, { type: ch.type, permissionOverwrites: ch.permissionOverwrites, reason: "Para cargar un backup." });
+    });
+    
+    await backups[message.author.id][args[0]].channels.filter(c => c.type !== "category").forEach(async function(ch) {
+      message.guild.channels.create(ch.name, { type: ch.type }).then(c => {
+        const parent = message.guild.channels.cache.filter(c => c.type === "category") .find(c => c.name === ch.parent);
+        ch.parent ? c.setParent(parent) : "";
+      });
+    });
+    
+    await message.guild.setName(backups[message.author.id][args[0]].name);
+    await message.guild.setIcon(backups[message.author.id][args[0]].icon);
   }
 }

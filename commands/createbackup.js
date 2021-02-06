@@ -68,6 +68,11 @@ module.exports = {
       .addField("Uso", `\`\`\`.loadbackup ${id}\`\`\`
       \`\`\`b!backup info ${id}\`\`\``)
       .setColor("GREEN");
-    })
+      
+      message.author.send(resultado);
+      m.edit('Revisa tus mensajes privados!!');
+
+      return true;
+    });
   }
 }
