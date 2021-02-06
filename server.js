@@ -1,5 +1,5 @@
-import { createRequire } from "module";
-const require = createRequire(import.meta.url);
+/*import { createRequire } from "module";
+const require = createRequire(import.meta.url);*/
 
 // server.js
 // where your node app starts
@@ -58,6 +58,7 @@ client.on('ready', () => {
 client.on('message', async (message) => {
   if(message.author.bot) return;
   if(!message.content.startsWith(prefix)) return;
+  if(message.channel.type === "dm") return;
   
   const args = message.content.slice(prefix.length).trim().split(/ +/g);
   const commandName = args.shift().toLowerCase();
