@@ -1,8 +1,9 @@
-const { MessageEmbed, Client, Util, Message } = require("discord.js");
+const { MessageEmbed } = require("discord.js");
 const fs = require("fs");
 const hastebins = require("hastebin-gen");
 const createBackupID = require("../utils/createBackupID.js");
 const save = require("../utils/save.js");
+const backups = JSON.parse(fs.readFileSync("./backups/backups.json", "utf8"));
 
 module.exports = {
   name: "createbackup",
@@ -50,14 +51,23 @@ module.exports = {
       
       if (!backups[message.author.id]) backups[message.author.id] = {};
       backups[message.author.id][id] = {
+        channels,
+        createdAt: message.guild.createdAt,
         icon: message.guild.iconURL(),
-                    name: message.guild.name,
-                    owner: message.guild.ownerID,
-                    members: message.guild.memberCount,
-                    createdAt: message.guild.createdAt,
-                    roles,
-      channels
+        members: message.guild.memberCount,
+        name: message.guild.name,
+        owner: message.guild.ownerID,
+        roles,
       };
+      
+      save();
+      
+      let resultado = new MessageEmbed()
+      .setTitle('Backup finalizado')
+      .setDescription(`Backup de **${message.guild.name}** creado con la ID \`${id}\``)
+      .addField("Uso", `\`\`\`.loadbackup ${id}\`\`\`
+      \`\`\`b!backup info ${id}\`\`\``)
+      .setColor("GREEN");
     })
   }
 }
