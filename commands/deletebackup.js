@@ -6,10 +6,12 @@ module.exports = {
   name: "deletebackup",
   alias: ["db"],
   run: async (client, message, args) => {
+    //console.log(backups[message.author.id][args[0]] ? 'pvto' : 'no')
+    
     if(!args[0]) return message.channel.send(`Debe proporcionar el ID del backup.`);
     if(!backups[message.author.id][args[0]]) return message.channel.send(`No tienes ningún un backup con esa ID.`);
     
-    delete backups[message.author.id][args[1]];
+    delete backups[message.author.id][args[0]];
     save();
     
     let eliminado = new MessageEmbed()

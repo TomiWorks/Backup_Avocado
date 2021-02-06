@@ -21,6 +21,7 @@ module.exports = {
     
     message.channel.send(creandoEmbed).then(m => {
       let id = createBackupID(16);
+      console.log(id)
       const channels = message.guild.channels.cache.sort(function(a, b) {
         return a.position - b.position;
       }).array().map(c => {
@@ -76,6 +77,8 @@ module.exports = {
       m.edit(md);
 
       return true;
+    }).catch(c => {
+      console.log(c)
     });
   }
 }
